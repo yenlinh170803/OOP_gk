@@ -37,6 +37,11 @@ public:
 	}
 	
 };
+class BC: public NhanVien
+{
+	float hesoluong;
+	float hesophucap;
+};
 int main()
 {
 	return 0;
