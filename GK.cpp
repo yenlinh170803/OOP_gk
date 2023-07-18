@@ -58,6 +58,11 @@ class HopDong:public NhanVien
 	void Nhap();
 	void Xuat();
 };
+class BC: public NhanVien
+{
+	float hesoluong;
+	float hesophucap;
+};
 int main()
 {
     BienChe nv;
