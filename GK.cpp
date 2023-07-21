@@ -22,7 +22,6 @@ public:
 	//phuong thuc
 	void Nhap();
 	void Xuat();
-	
 };
 class BienChe:public NhanVien
 {
@@ -58,19 +57,34 @@ class HopDong:public NhanVien
 	void Nhap();
 	void Xuat();
 };
-class BC: public NhanVien
-{
-	float hesoluong;
-	float hesophucap;
-};
+
 int main()
 {
-    BienChe nv;
-    nv.Nhap();
-    nv.Xuat();
-    // HopDong hd;
-    // hd.Nhap();
-    // hd.Xuat();
+	NhanVien *nv[100];
+	int n=0;
+	char Loai;
+	while(cin>>Loai)
+	{
+		if(Loai=='BC')
+		{
+			BienChe bc;
+			bc.Nhap();
+			nv[n]=new BienChe();
+		}
+		else
+		{
+			HopDong hd;
+			hd.Nhap();
+			nv[n]=new HopDong();
+		}
+		n++;
+	}
+	for(int i=0;i<n;i++)
+	{	
+		
+		cout<<nv[i]->getTinhLuong();
+		cout<<endl;
+	}
 	return 0;
 }
 
