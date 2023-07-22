@@ -20,13 +20,14 @@ public:
 	virtual int getTinhLuong()=0;
 	virtual string getLoaiNV()=0;
 	//phuong thuc
-	void Nhap();
-	void Xuat();
+	virtual void Nhap();
+	virtual void Xuat();
 };
 class BienChe:public NhanVien
 {
     protected:
-    int hesoluong, tienphucap;
+    float hesoluong;
+    int tienphucap;
     public:
     //get-set
     int getHeSoLuong();
@@ -39,8 +40,8 @@ class BienChe:public NhanVien
 	
 	virtual int getTinhLuong();
 	virtual string getLoaiNV();
-	void Nhap();
-	void Xuat();
+	virtual void Nhap();
+	virtual void Xuat();
 };
 class HopDong:public NhanVien
 {
@@ -54,37 +55,42 @@ class HopDong:public NhanVien
 	~HopDong();
 	virtual int getTinhLuong();
 	virtual string getLoaiNV();
-	void Nhap();
-	void Xuat();
+	virtual void Nhap();
+	virtual void Xuat();
 };
 
 int main()
 {
 	NhanVien *nv[100];
-	int n=0;
-	char Loai;
-	while(cin>>Loai)
+	int tongLuong=0;
+	int luong;
+	int n; cin>>n;
+	string loai;
+	for (int i=0;i<n;++i)
 	{
-		if(Loai=='BC')
+	    cin>>loai;
+		if(loai=="BC")
 		{
 			BienChe bc;
 			bc.Nhap();
-			nv[n]=new BienChe();
+			nv[i]=new BienChe(bc);
 		}
 		else
 		{
 			HopDong hd;
 			hd.Nhap();
-			nv[n]=new HopDong();
+			nv[i]=new HopDong(hd);
 		}
-		n++;
 	}
-	for(int i=0;i<n;i++)
+	for(int i=0;i<n;++i)
 	{	
-		
-		cout<<nv[i]->getTinhLuong();
-		cout<<endl;
+		nv[i]->Xuat();
+		cout<<'\n';
+		luong= nv[i]->getTinhLuong();
+		tongLuong+=luong;
+
 	}
+	cout<<"Tong luong nhan vien: "<<tongLuong;
 	return 0;
 }
 
@@ -96,7 +102,7 @@ HopDong::HopDong(string _hoten,string _maso,int _luongcb,
     songay=_songay;
     hesovuotgio=_hesovuotgio;
 }
-HopDong::HopDong(const HopDong&h)
+HopDong::HopDong(const HopDong&h):NhanVien(h)
 {
     tiencong=h.tiencong;
     songay=h.songay;
@@ -119,10 +125,7 @@ void HopDong::Nhap(){
 }
 void HopDong::Xuat(){
     NhanVien::Xuat();
-    cout<<"Tien cong lao dong: "<<tiencong;
-    cout<<"\nSo ngay lam viec trong thang: "<<songay;
-    cout<<"\nHe so vuot gio: "<<hesovuotgio;
-    cout<<"\nTong luong: "<<getTinhLuong();
+    cout<<"Tong luong: "<<getTinhLuong()<<'\n';
 }
 /***************BIEN CHE***************/
 //get-set
@@ -164,9 +167,7 @@ string BienChe::getLoaiNV()
 void BienChe::Xuat()
 {
     NhanVien::Xuat();
-    cout<<"He so luong: "<<hesoluong;
-    cout<<"\nTien phu cap chuc vu: "<<tienphucap;
-    cout<<"\nTong luong: "<<getTinhLuong();
+    cout<<"Tong luong: "<<getTinhLuong()<<'\n';
 }
 /***************NHAN VIEN***************/
 //get-set
@@ -201,5 +202,4 @@ void NhanVien::Xuat()
 	cout << "Loai nhan vien: " << getLoaiNV() << '\n';
 	cout << "Ma nhan vien: " << maso << '\n';
 	cout << "Ho ten: " << hoten << '\n';
-	cout << "Muc luong co ban: " << luongcb << '\n';
 }
